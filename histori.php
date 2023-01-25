@@ -62,9 +62,9 @@ if(!$nis) {
     </form>
     <a href="index.php">Kembali</a>
 
+    <?php if(isset($_POST['cariNis'])) : ?>
     <table border="1" cellspacing="3">
     <h2>Informasi Siswa</h2>
-  <?php if(isset($_POST['cariNis'])) : ?>
     <tr>
       <td>NIS</td>
       <td>Nama</td>
