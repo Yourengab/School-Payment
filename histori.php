@@ -16,6 +16,13 @@ if(!$nis) {
   $dataSpp = query("SELECT * FROM tb_spp WHERE nis=$nis");
 }
 }
+
+if( isset($_POST['cariTanggal']) ) {
+  $start = $_POST['start'];
+  $end = $_POST['end'];
+
+  $dataSpp = query("SELECT * FROM tb_spp WHERE tgl_bayar BETWEEN '$start' AND '$end'");
+}
 ?>
 
 <!DOCTYPE html>
@@ -101,8 +108,24 @@ if(!$nis) {
       <th><?= $spp['bulan']; ?></th>
       <th><?= $spp['total_bayar']; ?></th>
       <th><?= $spp['keterangan']; ?></th>
-    </tr>
+    </tr> 
   <?php endforeach; ?>
 </table>
+<form method="post">
+  <h2>Cari sesuai tanggal bayar</h2>
+    <ul>
+      <li>
+        <label for='start'>Mulai Tanggal</label>
+        <input type='date' id='start' name="start">
+      </li>
+      <li>
+        <label for='end'>Sampai Tanggal</label>
+        <input type='date' id='end' name="end">
+      </li>
+      <li>
+       <button type="submit" name="cariTanggal">Cari data</button>
+      </li>
+    </ul>
+  </form>
 </body>
 </html>

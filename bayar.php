@@ -1,14 +1,14 @@
 <?php 
 require 'functions.php';
 
-if( isset($_POST['cariNis'])) {
-$dataSiswa = cariData($_POST['nis']);
-// Query tb_Bulan
-$dataBulan = query("SELECT * FROM tb_bulan");
-
+if (isset($_POST['cariNis'])) {
+    $dataSiswa = cariData($_POST['nis']);
+    // Query tb_Bulan
+    $dataBulan = query("SELECT * FROM tb_bulan");
 }
 
 if(isset($_POST['bayarSPP'])) {
+
     if( bayarSpp($_POST) > 0 ) {
         echo "
         <script>
@@ -25,6 +25,7 @@ if(isset($_POST['bayarSPP'])) {
 
         var_dump(mysqli_affected_rows($conn));
     }
+    
 }
 ?>
 

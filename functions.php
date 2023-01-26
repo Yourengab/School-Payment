@@ -45,6 +45,13 @@ function cariData($keyword) {
     return query($query);
 }
 
+function deleteSiswa($nis) {
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM tb_siswa WHERE nis=$nis");
+    return mysqli_affected_rows($conn);
+}
+
 function bayarSpp($data) {
     global $conn;
 

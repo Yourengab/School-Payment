@@ -47,6 +47,7 @@ $dataSiswa = query("SELECT * FROM tb_siswa");
       <td>Angkatan</td>
       <td>Kelas</td>
       <td>No Telp</td>
+      <td>Aksi</td>
     </tr>
   <?php foreach(  $dataSiswa as $siswa ) : ?>
     <tr>
@@ -55,6 +56,7 @@ $dataSiswa = query("SELECT * FROM tb_siswa");
       <th><?= $siswa['angkatan']; ?></th>
       <th><?= $siswa['kelas']; ?></th>
       <th><?= $siswa['no_telp']; ?></th>
+      <th><a href="deleteprocess.php?nis=<?= $siswa['nis']?>">Delete</a></th>
     </tr>
   <?php endforeach; ?>
   </table>
