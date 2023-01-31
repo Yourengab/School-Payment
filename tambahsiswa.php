@@ -1,7 +1,7 @@
 <?php 
 require 'functions.php';
 
-$angkatan = query("SELECT * FROM tb_angkatan");
+$kelasiswa = query("SELECT * FROM tb_kelas");
 $user = query("SELECT * FROM tb_user");
 
 if( isset($_POST['tambahSiswa'])) {
@@ -55,11 +55,11 @@ if( isset($_POST['tambahSiswa'])) {
 <body>
 <nav>
   <a href="index.php">Daftar Siswa</a>
+  <a href="kelas.php">Daftar Kelas</a>
   <a href="histori.php">Histori Pembayaran Siswa</a>
   <a href="bayar.php">Bayar SPP</a>
   <a href="tambahsiswa.php">Tambah data siswa</a>
 </nav>
-
 <form method="post">
     <h2>Tambah Siswa</h2>
     <ul>
@@ -72,19 +72,18 @@ if( isset($_POST['tambahSiswa'])) {
         <label for='nama'>Nama Siswa</label>
         <input type='text' id='nama' name="nama" required>
         </li>
+        <li>
+        <label for='alamat'>alamat Siswa</label>
+        <input type='text' id='alamat' name="alamat" required>
+        </li>
         
         <li>
-        <label for='angkatan'>Angkatan</label>
-        <select name="angkatan" id="angkatan">
-            <?php foreach(  $angkatan as $tahun ) : ?>
-                <option value="<?=$tahun['angkatan']?>"><?=$tahun['angkatan']?></option>
+        <label for='kelas'>kelas</label>
+        <select name="kelas" id="kelas">
+            <?php foreach(  $kelasiswa as $kelas ) : ?>
+                <option value="<?=$kelas['kelas']?>"><?=$kelas['kelas']?></option>
             <?php endforeach; ?>
         </select>
-        </li>
-
-        <li>
-        <label for='kelas'>Kelas</label>
-        <input type='text' id='kelas' name="kelas" required>
         </li>
 
         <li>

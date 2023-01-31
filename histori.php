@@ -5,16 +5,11 @@ $dataSiswa  = query("SELECT * FROM tb_siswa");
 $dataSpp = query("SELECT * FROM tb_spp");
 
 
-if( isset($_POST['cariNis'])) {
-$nis = $_POST['nis'];
+if( isset($_POST['cariData'])) {
+    $dataSiswa = cariData($_POST['keyword']);
 
-if(!$nis) {
-  $dataSpp = query("SELECT * FROM tb_spp");
-  $dataSiswa  = query("SELECT * FROM tb_siswa");
-} else {
-  $dataSiswa = cariData($nis);
-  $dataSpp = query("SELECT * FROM tb_spp WHERE nis=$nis");
-}
+// if(!$nis) {
+  $dataSpp = cariHistori($_POST['keyword']);
 }
 
 if( isset($_POST['cariTanggal']) ) {
@@ -56,6 +51,7 @@ if( isset($_POST['cariTanggal']) ) {
 <body>
 <nav>
   <a href="index.php">Daftar Siswa</a>
+  <a href="kelas.php">Daftar Kelas</a>
   <a href="histori.php">Histori Pembayaran Siswa</a>
   <a href="bayar.php">Bayar SPP</a>
   <a href="tambahsiswa.php">Tambah data siswa</a>
@@ -63,13 +59,13 @@ if( isset($_POST['cariTanggal']) ) {
     <h2>Cari histori pembayaan siswa berdasarkan nis</H2>
     <form method="post">
         <label for='nis'>NIS :</label>
-        <input type='text' id='nis' name="nis">
+        <input type='text' id='nis' name="keyword">
 
-        <button type="submit" name="cariNis">Cari</button>
+        <button type="submit" name="cariData">Cari</button>
     </form>
     <a href="index.php">Kembali</a>
 
-    <?php if(isset($_POST['cariNis'])) : ?>
+    <?php if(isset($_POST['cariData'])) : ?>
     <table border="1" cellspacing="3">
     <h2>Informasi Siswa</h2>
     <tr>
@@ -83,14 +79,15 @@ if( isset($_POST['cariTanggal']) ) {
     <tr>
       <th><?= $siswa['nis']; ?></th>
       <th><?= $siswa['nama']; ?></th>
-      <th><?= $siswa['angkatan']; ?></th>
       <th><?= $siswa['kelas']; ?></th>
       <th><?= $siswa['no_telp']; ?></th>
+      <th><?= $siswa['alamat']; ?></th>
     </tr>
     <?php endforeach; ?>
   </table>
   <?php endif; ?>
-<h2>Spp yang sudah di bayar</h2>
+
+<h2>Histori Pembayaran</h2>
 <table border="1" cellspacing="3">
     <tr>
       <td>NIS</td>
@@ -105,8 +102,8 @@ if( isset($_POST['cariTanggal']) ) {
       <th><?= $spp['nis']; ?></th>
       <th><?= $spp['nama']; ?></th>
       <th><?= $spp['tgl_bayar']; ?></th>
-      <th><?= $spp['bulan']; ?></th>
       <th><?= $spp['total_bayar']; ?></th>
+      <th><?= $spp['bulan']; ?></th>
       <th><?= $spp['keterangan']; ?></th>
     </tr> 
   <?php endforeach; ?>
