@@ -2,7 +2,6 @@
 require 'functions.php';
 
 $kelasiswa = query("SELECT * FROM tb_kelas");
-$user = query("SELECT * FROM tb_user");
 
 if( isset($_POST['tambahSiswa'])) {
 
@@ -64,11 +63,6 @@ if( isset($_POST['tambahSiswa'])) {
     <h2>Tambah Siswa</h2>
     <ul>
         <li>
-        <label for='nis'>Nis Siswa</label>
-        <input type='text' id='nis' name="nis" required>
-        </li>
-
-        <li>
         <label for='nama'>Nama Siswa</label>
         <input type='text' id='nama' name="nama" required>
         </li>
@@ -94,15 +88,6 @@ if( isset($_POST['tambahSiswa'])) {
         <li>
         <label for='password'>Password</label>
         <input type='text' id='password' name="password" required>
-        </li>
-
-        <li>
-        <label for='level'>Level</label>
-        <select name="level" id="level">
-            <?php foreach(  $user as $level ) : ?>
-                <option value="<?=$level['level']?>"><?=$level['level']?></option>
-            <?php endforeach; ?>
-        </select>
         </li>
         <button type="submit" name="tambahSiswa">Tambah</button>
     </ul>

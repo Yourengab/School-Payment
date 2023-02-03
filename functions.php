@@ -27,7 +27,6 @@ function tambahSiswa($data)
 {
     global $conn;
 
-    $nis = htmlspecialchars($data['nis']);
     $nama = htmlspecialchars($data['nama']);
     $alamat = htmlspecialchars($data['alamat']);
     $kelas = htmlspecialchars($data['kelas']);
@@ -36,13 +35,13 @@ function tambahSiswa($data)
     $level = htmlspecialchars($data['level']);
 
     $result = "INSERT INTO tb_siswa VALUES (
-         $nis,
+         NULL,
         '$nama',
         '$kelas',
         '$no_telp',
         '$alamat',
         '$password',
-        '$level'
+        'siswa'
     );";
 
     mysqli_query($conn, $result);
@@ -66,7 +65,8 @@ function cariHistori($keyword)
     $query = "SELECT * FROM tb_spp WHERE 
     nis LIKE '$keyword' OR
     nama LIKE '%$keyword%' OR
-    kelas = '$keyword'
+    kelas = '$keyword' OR
+    bulan = '$keyword'
     ";
 
     return query($query);
@@ -105,25 +105,49 @@ function bayarSpp($data)
     // Kelas 9
     if ($kelas == 'IX') {
         if ($_POST['bayar'] > $sppKelasIX) {
-            $kembalian = $_POST['bayar'] - $sppKelasIX;
             $bayar = $sppKelasIX;
         }
     }
     // Kelas 8
     if ($kelas == 'VIII') {
         if ($_POST['bayar'] > $sppKelasIX) {
-            $kembalian = $_POST['bayar'] - $sppKelasVIII;
             $bayar = $sppKelasVIII;
         }
     }
     // Kelas 7
     if ($kelas == 'VII') {
         if ($_POST['bayar'] > $sppKelasIX) {
-            $kembalian = $_POST['bayar'] - $sppKelasVII;
             $bayar = $sppKelasVII;
         }
     }
-    $result = "INSERT INTO tb_spp VALUES (
+
+$lunas = mysqli_query($conn,"SELECT bulan FROM tb_spp WHERE nis=$nis AND bulan='$bulan' AND keterangan='LUNAS'");
+    
+$sudahDibayar = [];
+while ($row = mysqli_fetch_assoc($lunas)) {
+    $sudahDibayar[] = $row;
+}
+
+$location =  " document.location.href = 'bayar.php?nis=$nis'";
+if (!$sudahDibayar) {
+    // Amibil nis siswa saat baayar berhasil
+    echo "
+    <script>
+    alert('Berhasil Membayar');
+    $location
+    </script>   
+    ";
+} else {
+    echo "
+    <script>
+    alert('Bulan Sudah Dibayar!');
+    $location
+    </script>
+    ";
+    exit;
+}
+
+$result = "INSERT INTO tb_spp VALUES (
     '',
     $nis,
     '$nama',

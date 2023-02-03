@@ -68,7 +68,7 @@ if( isset($_POST['cariSiswa']) ){
       <th><?= $siswa['kelas']; ?></th>
       <th><?= $siswa['no_telp']; ?></th>
       <th>
-        <a href="deleteprocess.php?nis=<?= $siswa['nis']?>">Delete</a> ||
+        <a href="deleteprocess.php?nis=<?= $siswa['nis']?>" onclick="return confirm('Ingin Menghapus data siswa?')">Delete</a> ||
         <a href="bayar.php?nis=<?= $siswa['nis']?>">Bayar SPP</a>
     </th>
     </tr>
